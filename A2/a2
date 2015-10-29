@@ -1,0 +1,50 @@
+2: because without the second loop the process may end before the hello message from the go function run. This is due to the fact that the ordering of the threads including the parent thread is not guarunteed.
+
+7:np and n
+are stack variables and are stored in the stacks of their respective threads
+
+8: Althoug i's value is copied over to other thread via the thread_create call, i and exitValues are stored on the stack of the main thread and are perthread variable.
+
+
+
+
+1. True, if the shared memory is modified and accessed automicly then the two enviorments should be analogous.
+
+2. Assume that alg. is not safe. consider the possible states when Path A loads the value of noteB
+
+we know that A can not concurently chech the status of milk and run the body of Path b becuase of the while loop blocks it. This invalidates our assumption that A and B both increment milk if B Path has started. Both paths may start concurently however, but path A will hang on the while untill Path B alows it to run. In this situation our assumption is invalid because B can not increment milk. If Path A run first and increments milk concurently is imposible because note A will be 1 so path b will not increment milk so our assumption is invalid. No relivant interleavings allow our assuptions to hold so therefore solution 3 is thread safe. 
+
+
+3. the main thread blocks for worker 0 so we know that it will have 30 items when complete and will print Removed 20 times' The other threads do not have this gaurntee so their inserts maybe be interleafed with removal. This means they will have between 50 and 30 elements in thier ques. 
+
+
+6. mesa vs hoare: proof
+assume starvation is possible ie, there exists at least one thread who's time to completion is infinite. We are given the case of a continous stream of inserts and an eventual removal the removal will open a space and then signal. Because Hoare then transfers controll to a signaled thread and the prompt spesified that the longest waiting thread is the one selected, the amount of time that thread waited is equal to the cost of registering the inserts between when it was registered and when the removal that signals it is registered. This implies that as long as a removal at t<infinity is called, the longest processes waiting time is less than infinite and by extention all other wait times must be less than infinite. This invalidates our assumption so starvation is not possible.
+
+7. fix 5.8
+add state variables to CLASS BBQ called i and d and nexti, nextd. insert and remove each assign them selves an id = to i/d repsectivly and increment after the lock but before their while loops. Add the additional condition that nexti must equal that threads i for the while to unblock. after it does increment i or d. This insures that the thread waiting the longest will run first
+
+
+chapter 6:
+1:[231] [312] are equivalent bc. operations are communitive and atomic
+
+3: n+1 because it disallows the circular dependencies. 
+
+6: insures freedom from deadlock because it orders resource acess
+
+q1:
+preimtive schedulers can modify the schedule as new requests come it.
+
+q2:
+the least processor favors io bc. they are non intensive but all processes will be run eventually bc. it will not have information on a process and run it or forget how long a large process takes and run it.
+
+
+
+
+
+
+
+
+
+
+
