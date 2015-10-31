@@ -57,7 +57,6 @@ int main(int argc, char *argv[]){
     int pStatus[1024];
     int p=0;
     int returnStatus;
-    pid_t parrent = getpid();
 
 
 	while((read = getline(&line, &len, instructions)) != -1){
@@ -126,6 +125,10 @@ int main(int argc, char *argv[]){
         int current;
         int next;
         int done = 0;
+        pid_t parrent = getpid();
+        PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        proc_t proc_info;
+        memset(&proc_info, 0, sizeof(proc_info));
         
         while (!done) {
             if ( print_flag ) {
@@ -147,9 +150,7 @@ int main(int argc, char *argv[]){
                 z++;
                 int s = 0;
                 printf("S: %d \n", s);
-                PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-                proc_t proc_info;
-                memset(&proc_info, 0, sizeof(proc_info));
+                
                 while (readproc(proc, &proc_info) != NULL) {
                     if(proc_info.ppid == parrent){
                         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
@@ -157,7 +158,6 @@ int main(int argc, char *argv[]){
                                proc_info.utime, proc_info.stime);
                     }
                 }
-                closeproc(proc);
                 for(int i=1; i<=p;i++){
                     printf("%d\n", kill(pid[i], 0));
                     s+= kill(pid[i],0);
@@ -172,6 +172,7 @@ int main(int argc, char *argv[]){
                 
             }
         }
+        closeproc(proc);
 
         return(0);
     }else{
@@ -291,7 +292,7 @@ int main(int argc, char *argv[]){
    
  //    // free(pid);
  //    // free(pStatus);
- 
+
 	fclose(instructions);
     if(line)
             free(line);
