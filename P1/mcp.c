@@ -57,6 +57,7 @@ int main(int argc, char *argv[]){
     int pStatus[1024];
     int p=0;
     int returnStatus;
+    pid_t parrent = getpid();
 
 
 	while((read = getline(&line, &len, instructions)) != -1){
@@ -135,7 +136,7 @@ int main(int argc, char *argv[]){
         int next;
         int done = 0;
 
-        pid_t parrent = getpid();
+        
 
         PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
         proc_t proc_info;
