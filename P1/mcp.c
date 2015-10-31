@@ -132,7 +132,7 @@ int main(int argc, char *argv[]){
         int current;
         int next;
         int done = 0;
-        pid_t parrent = getpid();
+        pid_t parrent = getppid();
 
 
 
