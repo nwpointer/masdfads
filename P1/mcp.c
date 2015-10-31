@@ -146,7 +146,7 @@ int main(int argc, char *argv[]){
                        proc_info.ppid, proc_info.stime);
             }
         }
-        printf("%d\n", parent);
+        printf("%d\n", parrent);
         printf("%d\n",getppid() );
         closeproc(proc);
         // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
