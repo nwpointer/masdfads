@@ -58,14 +58,6 @@ int main(int argc, char *argv[]){
     int p=0;
     int returnStatus;
 
-    PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-    proc_t proc_info;
-    memset(&proc_info, 0, sizeof(proc_info));
-    while (readproc(proc, &proc_info) != NULL) {
-      printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-             proc_info.cmd, proc_info.resident,
-             proc_info.utime, proc_info.stime);
-    }
 
 	while((read = getline(&line, &len, instructions)) != -1){
 		tokens = strsplit(line, ", \t\n", &numtokens);
@@ -84,6 +76,18 @@ int main(int argc, char *argv[]){
 		if (tokens != NULL) free(tokens);
     }
 
+    PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+    proc_t proc_info;
+    memset(&proc_info, 0, sizeof(proc_info));
+    while (readproc(proc, &proc_info) != NULL) {
+        for(int i=0; i<=p; i++){
+            if(proc_info.pid == pid[i]){
+                printf("%20s:\t%5ld\t%5lld\t%5lld\n",
+                       proc_info.cmd, proc_info.resident,
+                       proc_info.utime, proc_info.stime);
+            }
+        }
+    }
 
     // signal( SIGALRM, handle_alarm ); // Install handler first,
     // alarm( 1 ); // before scheduling it to be called.
