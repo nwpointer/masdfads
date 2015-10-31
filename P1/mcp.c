@@ -57,8 +57,6 @@ int main(int argc, char *argv[]){
     int pStatus[1024];
     int p=0;
     int returnStatus;
-    pid_t parrent = getpid();
-
 
 	while((read = getline(&line, &len, instructions)) != -1){
 		tokens = strsplit(line, ", \t\n", &numtokens);
@@ -124,7 +122,7 @@ int main(int argc, char *argv[]){
     //     kill(pid[i],SIGKILL);
     // }
 
-
+    pid_t parrent = getpid();
     pid_t poll = fork();
 
     if(poll == 0){
@@ -144,8 +142,8 @@ int main(int argc, char *argv[]){
         while (readproc(proc, &proc_info) != NULL) {
             if(proc_info.ppid == parrent || 1){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-                       proc_info.cmd, proc_info.resident,
-                       proc_info.utime, proc_info.stime);
+                       proc_info.cmd, proc_info.status,
+                       proc_info.ppid, proc_info.stime);
             }
         }
         
