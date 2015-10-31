@@ -146,6 +146,9 @@ int main(int argc, char *argv[]){
                        proc_info.ppid, proc_info.stime);
             }
         }
+        closeproc(proc);
+        proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        memset(&proc_info, 0, sizeof(proc_info));
         printf("---\n");
         while (readproc(proc, &proc_info) != NULL) {
             if(proc_info.ppid == parrent || 1){
