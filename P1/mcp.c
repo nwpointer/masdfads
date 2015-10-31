@@ -134,7 +134,7 @@ int main(int argc, char *argv[]){
         int next;
         int done = 0;
 
-        
+
 
         PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
         proc_t proc_info;
@@ -146,17 +146,19 @@ int main(int argc, char *argv[]){
                        proc_info.ppid, proc_info.stime);
             }
         }
+        printf("%d\n", parent);
+        printf("%d\n",getppid() );
         closeproc(proc);
-        proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-        memset(&proc_info, 0, sizeof(proc_info));
-        printf("---\n");
-        while (readproc(proc, &proc_info) != NULL) {
-            if(proc_info.ppid == parrent || 1){
-                printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-                       proc_info.cmd, proc_info.state,
-                       proc_info.ppid, proc_info.stime);
-            }
-        }
+        // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        // memset(&proc_info, 0, sizeof(proc_info));
+        // printf("---\n");
+        // while (readproc(proc, &proc_info) != NULL) {
+        //     if(proc_info.ppid == parrent || 1){
+        //         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
+        //                proc_info.cmd, proc_info.state,
+        //                proc_info.ppid, proc_info.stime);
+        //     }
+        // }
         // closeproc(proc);
         
         while (!done) {
