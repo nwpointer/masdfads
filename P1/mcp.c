@@ -122,7 +122,6 @@ int main(int argc, char *argv[]){
     //     kill(pid[i],SIGKILL);
     // }
 
-    pid_t parrent = getpid();
     pid_t poll = fork();
 
     if(poll == 0){
@@ -133,6 +132,7 @@ int main(int argc, char *argv[]){
         int current;
         int next;
         int done = 0;
+        pid_t parrent = getpid();
 
 
 
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]){
         proc_t proc_info;
         memset(&proc_info, 0, sizeof(proc_info));
         while (readproc(proc, &proc_info) != NULL) {
-            if(proc_info.ppid == parrent || 1){
+            if(proc_info.ppid == parrent ){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
                        proc_info.cmd, proc_info.state,
                        proc_info.ppid, proc_info.stime);
