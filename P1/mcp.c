@@ -157,6 +157,7 @@ int main(int argc, char *argv[]){
                                proc_info.utime, proc_info.stime);
                     }
                 }
+                closeproc(proc);
                 for(int i=1; i<=p;i++){
                     printf("%d\n", kill(pid[i], 0));
                     s+= kill(pid[i],0);
@@ -290,7 +291,7 @@ int main(int argc, char *argv[]){
    
  //    // free(pid);
  //    // free(pStatus);
-    closeproc(proc);
+ 
 	fclose(instructions);
     if(line)
             free(line);
