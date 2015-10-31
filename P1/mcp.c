@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
                         // break;
                         // kill(getpid(), SIGKILL);
                         done = 1;
-                        return(0);
+                        // return(0);
                     }
                 }
                 
