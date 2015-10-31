@@ -146,7 +146,7 @@ int main(int argc, char *argv[]){
                        proc_info.ppid, proc_info.stime);
             }
         }
-        closeproc(proc);
+        // closeproc(proc);
         
         while (!done) {
             if ( print_flag ) {
@@ -182,7 +182,7 @@ int main(int argc, char *argv[]){
                 
             }
         }
-        PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        // PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
         proc_t proc_info;
         memset(&proc_info, 0, sizeof(proc_info));
         while (readproc(proc, &proc_info) != NULL) {
