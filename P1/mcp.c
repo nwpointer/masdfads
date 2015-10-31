@@ -183,7 +183,7 @@ int main(int argc, char *argv[]){
             }
         }
         // PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-        proc_t proc_info;
+        // proc_t proc_info;
         memset(&proc_info, 0, sizeof(proc_info));
         while (readproc(proc, &proc_info) != NULL) {
             if(proc_info.ppid == parrent || 1){
