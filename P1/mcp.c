@@ -183,15 +183,22 @@ int main(int argc, char *argv[]){
                 print_flag = false;
                 alarm( 2 );
                 z++;
+
+                // print process information
                 proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
                 memset(&proc_info, 0, sizeof(proc_info));
                 while (readproc(proc, &proc_info) != NULL) {
                     strcpy(str, "./");
                     strcat(str,proc_info.cmd);
                     if(strcmp(str, pname) == 0){
+                        printf("CMD | PPID | CPU TIME | PRIORITY |  PROCESS STATUS\n");
                         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-                               proc_info.cmd, proc_info.state,
-                               proc_info.ppid, proc_info.stime);
+                               proc_info.cmd,
+                               proc_info.ppid,
+                               proc_info.utime,
+                               proc_info.priority,
+                               proc_info.state
+                               );
                     }
                 }
                 closeproc(proc);
