@@ -140,8 +140,23 @@ int main(int argc, char *argv[]){
         PROCTAB* proc;
         proc_t proc_info;
         char str[80];
-        
 
+        // print process information
+        proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        memset(&proc_info, 0, sizeof(proc_info));
+        while (readproc(proc, &proc_info) != NULL) {
+            strcpy(str, "./");
+            strcat(str,proc_info.cmd);
+            if(strcmp(str, pname) == 0){
+                printf("CMD | PPID | CPU TIME \n");
+                printf("%5s:\t%5ld\t%5lld\t%5lld\n",
+                       proc_info.cmd,
+                       proc_info.ppid,
+                       proc_info.utime
+                       );
+            }
+        }
+        closeproc(proc);
         
         while (!done) {
             if ( print_flag ) {
@@ -167,7 +182,7 @@ int main(int argc, char *argv[]){
                 int s = 0;
                 printf("S: %d \n", s);
                 for(int i=1; i<=p;i++){
-                    printf("%d\n", kill(pid[i], 0));
+                    printf("state: %d\n", kill(pid[i], 0));
                     s+= kill(pid[i],0);
                     if(s==-p){
                         printf("Done\n");
@@ -177,26 +192,25 @@ int main(int argc, char *argv[]){
                         // return(0);
                     }
                 }
-
-                // print process information
-                proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-                memset(&proc_info, 0, sizeof(proc_info));
-                while (readproc(proc, &proc_info) != NULL) {
-                    strcpy(str, "./");
-                    strcat(str,proc_info.cmd);
-                    if(strcmp(str, pname) == 0){
-                        printf("CMD | PPID | CPU TIME |  PROCESS STATUS\n");
-                        printf("%5s:\t%5ld\t%5lld\t%5lld %d\n",
-                               proc_info.cmd,
-                               proc_info.ppid,
-                               proc_info.utime,
-                               proc_info.state
-                               );
-                    }
-                }
-                closeproc(proc);
             }
         }
+        // print process information
+        proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        memset(&proc_info, 0, sizeof(proc_info));
+        while (readproc(proc, &proc_info) != NULL) {
+            strcpy(str, "./");
+            strcat(str,proc_info.cmd);
+            if(strcmp(str, pname) == 0){
+                printf("CMD | PPID | CPU TIME \n");
+                printf("%5s:\t%5ld\t%5lld\t%5lld\n",
+                       proc_info.cmd,
+                       proc_info.ppid,
+                       proc_info.utime
+                       );
+            }
+        }
+        closeproc(proc);
+
         // clean up
         for(int i=1; i<=p;i++){
             kill(pid[i],SIGKILL);
