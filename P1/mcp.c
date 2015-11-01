@@ -132,7 +132,7 @@ int main(int argc, char *argv[]){
         int current;
         int next;
         int done = 0;
-        pid_t parrent = getppid();
+        pid_t parrent = argv[0];
 
 
 
@@ -140,14 +140,12 @@ int main(int argc, char *argv[]){
         proc_t proc_info;
         memset(&proc_info, 0, sizeof(proc_info));
         while (readproc(proc, &proc_info) != NULL) {
-            if(proc_info.ppid == parrent ){
+            if(proc_info.cmd == parrent ){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
                        proc_info.cmd, proc_info.state,
                        proc_info.ppid, proc_info.stime);
             }
         }
-        // printf("%d\n", parrent);
-        // printf("%d\n",getppid() );
         closeproc(proc);
         // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
         // memset(&proc_info, 0, sizeof(proc_info));
