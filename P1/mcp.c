@@ -180,9 +180,9 @@ int main(int argc, char *argv[]){
 
                 // check process status to continue or kill while loop
                 int s = 0;
-                printf("S: %d \n", s);
+                printf("process states: [");
                 for(int i=1; i<=p;i++){
-                    printf("state: %d\n", kill(pid[i], 0));
+                    printf("%d: %d\n",pid[i], kill(pid[i], 0));
                     s+= kill(pid[i],0);
                     if(s==-p){
                         printf("Done\n");
@@ -192,6 +192,7 @@ int main(int argc, char *argv[]){
                         // return(0);
                     }
                 }
+                printf("]", );
             }
         }
         // print process information
