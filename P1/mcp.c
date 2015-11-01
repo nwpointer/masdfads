@@ -142,7 +142,7 @@ int main(int argc, char *argv[]){
         memset(&proc_info, 0, sizeof(proc_info));
         char str[80];
         while (readproc(proc, &proc_info) != NULL) {
-            strcpy(str, "./");
+            strcpy(str, "");
             strcat(str,proc_info.cmd);
             printf("%s, %s\n", str, proc_info.cmd);
 
