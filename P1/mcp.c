@@ -24,8 +24,8 @@ void runChildProcess(char **tokens, int numtokens){
 
     int result = sigwait(&sigset, &sig);
     
-    char * const t[1] = {"foo"};
-    execvp(tokens[0], t);
+    // char * const t[1] = {"foo"};
+    execvp(tokens[0], (tokens+1));
 
     printf("Unknown command\n");
     exit(0);
