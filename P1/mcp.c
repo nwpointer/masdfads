@@ -182,8 +182,7 @@ int main(int argc, char *argv[]){
                 int s = 0;
                 printf("process states: [");
                 for(int i=1; i<=p;i++){
-                    printf("%d: %d,
-                        ",pid[i], kill(pid[i], 0));
+                    printf("%d: %d,",pid[i], kill(pid[i], 0));
                     s+= kill(pid[i],0);
                     if(s==-p){
                         printf("Done\n");
