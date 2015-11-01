@@ -144,8 +144,6 @@ int main(int argc, char *argv[]){
         while (readproc(proc, &proc_info) != NULL) {
             strcpy(str, "./");
             strcat(str,proc_info.cmd);
-            printf("%s, %s\n", str, pname);
-
             if(strcmp(str, pname) == 0){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
                        proc_info.cmd, proc_info.state,
