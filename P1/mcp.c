@@ -141,29 +141,7 @@ int main(int argc, char *argv[]){
         proc_t proc_info;
         char str[80];
         
-        // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-        // memset(&proc_info, 0, sizeof(proc_info));
-        // while (readproc(proc, &proc_info) != NULL) {
-        //     strcpy(str, "./");
-        //     strcat(str,proc_info.cmd);
-        //     if(strcmp(str, pname) == 0){
-        //         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-        //                proc_info.cmd, proc_info.state,
-        //                proc_info.ppid, proc_info.stime);
-        //     }
-        // }
-        // closeproc(proc);
-        // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-        // memset(&proc_info, 0, sizeof(proc_info));
-        // printf("---\n");
-        // while (readproc(proc, &proc_info) != NULL) {
-        //     if(proc_info.ppid == parrent || 1){
-        //         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-        //                proc_info.cmd, proc_info.state,
-        //                proc_info.ppid, proc_info.stime);
-        //     }
-        // }
-        // closeproc(proc);
+
         
         while (!done) {
             if ( print_flag ) {
@@ -184,13 +162,15 @@ int main(int argc, char *argv[]){
                 alarm( 2 );
                 z++;
 
+
+                // check process status to continue or kill while loop
                 int s = 0;
                 printf("S: %d \n", s);
                 for(int i=1; i<=p;i++){
                     printf("%d\n", kill(pid[i], 0));
                     s+= kill(pid[i],0);
                     if(s==-p){
-                        printf("OMG STOPPP\n");
+                        printf("Done\n");
                         // break;
                         // kill(getpid(), SIGKILL);
                         done = 1;
@@ -217,17 +197,15 @@ int main(int argc, char *argv[]){
                 closeproc(proc);
             }
         }
-        // PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-        // proc_t proc_info;
-        // memset(&proc_info, 0, sizeof(proc_info));
-        // while (readproc(proc, &proc_info) != NULL) {
-        //     if(proc_info.ppid == parrent || 1){
-        //         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-        //                proc_info.cmd, proc_info.state,
-        //                proc_info.ppid, proc_info.stime);
-        //     }
-        // }
-        // closeproc(proc);
+        // clean up
+        for(int i=1; i<=p;i++){
+            kill(pid[i],SIGKILL);
+        }
+
+        fclose(instructions);
+        if(line){
+            free(line);
+        }  
 
         return(0);
     }else{
@@ -347,10 +325,6 @@ int main(int argc, char *argv[]){
    
  //    // free(pid);
  //    // free(pStatus);
-    
-	fclose(instructions);
-    if(line)
-            free(line);
     //kill(poll,SIGKILL);
     exit(0);
 
