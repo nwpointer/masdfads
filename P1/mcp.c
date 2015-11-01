@@ -137,20 +137,22 @@ int main(int argc, char *argv[]){
 
 
 
-        PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        PROCTAB* proc;
         proc_t proc_info;
-        memset(&proc_info, 0, sizeof(proc_info));
         char str[80];
-        while (readproc(proc, &proc_info) != NULL) {
-            strcpy(str, "./");
-            strcat(str,proc_info.cmd);
-            if(strcmp(str, pname) == 0){
-                printf("%20s:\t%5ld\t%5lld\t%5lld\n",
-                       proc_info.cmd, proc_info.state,
-                       proc_info.ppid, proc_info.stime);
-            }
-        }
-        closeproc(proc);
+        
+        // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+        // memset(&proc_info, 0, sizeof(proc_info));
+        // while (readproc(proc, &proc_info) != NULL) {
+        //     strcpy(str, "./");
+        //     strcat(str,proc_info.cmd);
+        //     if(strcmp(str, pname) == 0){
+        //         printf("%20s:\t%5ld\t%5lld\t%5lld\n",
+        //                proc_info.cmd, proc_info.state,
+        //                proc_info.ppid, proc_info.stime);
+        //     }
+        // }
+        // closeproc(proc);
         // proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
         // memset(&proc_info, 0, sizeof(proc_info));
         // printf("---\n");
@@ -181,19 +183,31 @@ int main(int argc, char *argv[]){
                 print_flag = false;
                 alarm( 2 );
                 z++;
-                int s = 0;
-                printf("S: %d \n", s);
-                for(int i=1; i<=p;i++){
-                    printf("%d\n", kill(pid[i], 0));
-                    s+= kill(pid[i],0);
-                    if(s==-p){
-                        printf("OMG STOPPP\n");
-                        // break;
-                        // kill(getpid(), SIGKILL);
-                        done = 1;
-                        // return(0);
+                proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+                memset(&proc_info, 0, sizeof(proc_info));
+                while (readproc(proc, &proc_info) != NULL) {
+                    strcpy(str, "./");
+                    strcat(str,proc_info.cmd);
+                    if(strcmp(str, pname) == 0){
+                        printf("%20s:\t%5ld\t%5lld\t%5lld\n",
+                               proc_info.cmd, proc_info.state,
+                               proc_info.ppid, proc_info.stime);
                     }
                 }
+                closeproc(proc);
+                // int s = 0;
+                // printf("S: %d \n", s);
+                // for(int i=1; i<=p;i++){
+                //     printf("%d\n", kill(pid[i], 0));
+                //     s+= kill(pid[i],0);
+                //     if(s==-p){
+                //         printf("OMG STOPPP\n");
+                //         // break;
+                //         // kill(getpid(), SIGKILL);
+                //         done = 1;
+                //         // return(0);
+                //     }
+                // }
                 
             }
         }
