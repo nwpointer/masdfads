@@ -184,24 +184,6 @@ int main(int argc, char *argv[]){
                 alarm( 2 );
                 z++;
 
-                // print process information
-                proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
-                memset(&proc_info, 0, sizeof(proc_info));
-                while (readproc(proc, &proc_info) != NULL) {
-                    strcpy(str, "./");
-                    strcat(str,proc_info.cmd);
-                    if(strcmp(str, pname) == 0){
-                        printf("CMD | PPID | CPU TIME | PRIORITY |  PROCESS STATUS\n");
-                        printf("%5s:\t%5ld\t%5lld\t%5lld\t%5lld\n",
-                               proc_info.cmd,
-                               proc_info.ppid,
-                               proc_info.utime,
-                               proc_info.priority,
-                               proc_info.state
-                               );
-                    }
-                }
-                closeproc(proc);
                 int s = 0;
                 printf("S: %d \n", s);
                 for(int i=1; i<=p;i++){
@@ -215,7 +197,24 @@ int main(int argc, char *argv[]){
                         // return(0);
                     }
                 }
-                
+
+                // print process information
+                proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
+                memset(&proc_info, 0, sizeof(proc_info));
+                while (readproc(proc, &proc_info) != NULL) {
+                    strcpy(str, "./");
+                    strcat(str,proc_info.cmd);
+                    if(strcmp(str, pname) == 0){
+                        printf("CMD | PPID | CPU TIME |  PROCESS STATUS\n");
+                        printf("%5s:\t%5ld\t%5lld\t%5lld %d\n",
+                               proc_info.cmd,
+                               proc_info.ppid,
+                               proc_info.utime,
+                               proc_info.state
+                               );
+                    }
+                }
+                closeproc(proc);
             }
         }
         // PROCTAB* proc = openproc(PROC_FILLMEM | PROC_FILLSTAT | PROC_FILLSTATUS);
