@@ -143,7 +143,7 @@ int main(int argc, char *argv[]){
         char str[80];
         while (readproc(proc, &proc_info) != NULL) {
             strcpy(str, "./");
-            strcat(str,proc_info.cmd)
+            strcat(str,proc_info.cmd);
             if(str == parrent ){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
                        proc_info.cmd, proc_info.state,
