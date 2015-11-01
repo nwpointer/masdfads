@@ -133,7 +133,7 @@ int main(int argc, char *argv[]){
         int next;
         int done = 0;
         pid_t parrent = getppid();
-        printf("%s\n", argv[0]);
+        printf("%s\n", *(argv[0]+2));
 
 
 
