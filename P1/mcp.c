@@ -146,7 +146,7 @@ int main(int argc, char *argv[]){
             strcat(str,proc_info.cmd);
             printf("%s, %s\n", str, proc_info.cmd);
 
-            if(strcmp(str, proc_info.cmd)){
+            if(strcmp(str, proc_info.cmd) == 0){
                 printf("%20s:\t%5ld\t%5lld\t%5lld\n",
                        proc_info.cmd, proc_info.state,
                        proc_info.ppid, proc_info.stime);
