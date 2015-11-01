@@ -192,7 +192,7 @@ int main(int argc, char *argv[]){
                     strcat(str,proc_info.cmd);
                     if(strcmp(str, pname) == 0){
                         printf("CMD | PPID | CPU TIME | PRIORITY |  PROCESS STATUS\n");
-                        printf("%20s:\t%5ld\t%5lld\t%5lld\n",
+                        printf("%5s:\t%5ld\t%5lld\t%5lld\t%5lld\n",
                                proc_info.cmd,
                                proc_info.ppid,
                                proc_info.utime,
@@ -202,19 +202,19 @@ int main(int argc, char *argv[]){
                     }
                 }
                 closeproc(proc);
-                // int s = 0;
-                // printf("S: %d \n", s);
-                // for(int i=1; i<=p;i++){
-                //     printf("%d\n", kill(pid[i], 0));
-                //     s+= kill(pid[i],0);
-                //     if(s==-p){
-                //         printf("OMG STOPPP\n");
-                //         // break;
-                //         // kill(getpid(), SIGKILL);
-                //         done = 1;
-                //         // return(0);
-                //     }
-                // }
+                int s = 0;
+                printf("S: %d \n", s);
+                for(int i=1; i<=p;i++){
+                    printf("%d\n", kill(pid[i], 0));
+                    s+= kill(pid[i],0);
+                    if(s==-p){
+                        printf("OMG STOPPP\n");
+                        // break;
+                        // kill(getpid(), SIGKILL);
+                        done = 1;
+                        // return(0);
+                    }
+                }
                 
             }
         }
